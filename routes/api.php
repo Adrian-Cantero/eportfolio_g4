@@ -12,6 +12,7 @@ use App\Http\Controllers\API\AsignacionRevisionController;
 use App\Http\Controllers\API\CriterioTareaController;
 use App\Http\Controllers\API\EvidenciasController as APIEvidenciasController;
 use App\Http\Controllers\API\TareasController;
+use App\Http\Controllers\API\TokenController;
 use App\Http\Controllers\EvidenciasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,13 +27,24 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::prefix('v1')->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/user', function (Request $request) {
+            $user = $request->user();
+            $user->fullName = $user->nombre . ' ' . $user->apellidos;
+            return $user;
+        });
+    });
 
-    Route::apiResource('resultados_aprendizaje', ResultadoAprendizajeController::class)->parameters([
-        'resultados_aprendizaje' => 'resultadoAprendizaje'
+    Route::apiResource('resultados-aprendizaje', ResultadoAprendizajeController::class)->parameters([
+        'resultados-aprendizaje' => 'resultadoAprendizaje'
     ]);
 
-    Route::apiResource('criterios_evaluacion', CriterioEvaluacionController::class)->parameters([
-        'criterios_evaluacion' => 'criterioEvaluacion'
+    Route::apiResource('resultados-aprendizaje.criterios-evaluacion', ResultadoAprendizajeController::class)->parameters([
+        'resultados-aprendizaje' => 'resultadoAprendizaje'
+    ]);
+
+    Route::apiResource('criterios-evaluacion', CriterioEvaluacionController::class)->parameters([
+        'criterios-evaluacion' => 'criterioEvaluacion'
     ]);
 
     Route::apiResource('matriculas', MatriculaController::class)->parameters([
@@ -62,18 +74,18 @@ Route::prefix('v1')->group(function () {
         'comentarios' => 'comentario'
     ]);
 
-    Route::apiResource('asignaciones_revision', AsignacionRevisionController::class)->parameters([
-        'asignaciones_revision' => 'asignacionRevision'
+    Route::apiResource('asignaciones-revision', AsignacionRevisionController::class)->parameters([
+        'asignaciones-revision' => 'asignacionRevision'
     ]);
 
-    Route::apiResource('criterios_tarea', CriterioTareaController::class)->parameters([
-        'criterios_tarea' => 'criterioTarea'
+    Route::apiResource('criterios-tarea', CriterioTareaController::class)->parameters([
+        'criterios-tarea' => 'criterioTarea'
     ]);
 
     Route::apiResource('evidencias.asignaciones_revision', AsignacionRevisionController::class)
         ->parameters([
             'evidencias' => 'evidencia',
-            'asignaciones_revision' => 'asignacionRevision'
+            'asignaciones-revision' => 'asignacionRevision'
     ]);
 
      Route::apiResource('tareas', TareasController::class)->parameters([
@@ -90,6 +102,10 @@ Route::prefix('v1')->group(function () {
         'criterios-evaluacion' => 'criterioEvaluacion',
         'tareas' => 'tarea'
     ]);
+
+    Route::post('tokens', [TokenController::class, 'store']);
+    // elimina el token del usuario autenticado
+    Route::delete('tokens', [TokenController::class, 'destroy'])->middleware('auth:sanctum');
 });
 
 
