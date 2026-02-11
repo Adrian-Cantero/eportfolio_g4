@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('criterios_evaluacion', function (Blueprint $table) {
+        Schema::create('criterios-evaluacion', function (Blueprint $table) {
 
             $table->id();
             $table->unsignedBigInteger('resultado_aprendizaje_id')->nullable();
-                $table->foreign('resultado_aprendizaje_id')->references('id')->on('resultados_aprendizaje')->onDelete('cascade');
+                $table->foreign('resultado_aprendizaje_id')->references('id')->on('resultados-aprendizaje')->onDelete('cascade');
             $table->string('codigo',50);
             $table->string('descripcion');
             $table->unsignedInteger('peso_porcentaje')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('criterios_evaluacion');
+        Schema::dropIfExists('criterios-evaluacion');
     }
 };

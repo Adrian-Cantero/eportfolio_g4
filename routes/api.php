@@ -52,7 +52,7 @@ Route::prefix('v1')->group(function () {
     ]);
 
     Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)
-        ->parameters(['familias-profesionales' => 'familiaProfesional']);
+        ->parameters(['familias-profesionales' => 'familia']);
 
     Route::apiResource('familias-profesionales.ciclos-formativos', CicloFormativoController::class)
         ->parameters([
@@ -61,12 +61,13 @@ Route::prefix('v1')->group(function () {
     ]);
 
     Route::apiResource('ciclos-formativos.modulos-formativos', ModuloFormativoController::class)->parameters([
+            'ciclos-formativos' => 'cicloFormativo',
             'modulos-formativos' => 'moduloFormativo'
     ]);
 
-    Route::apiResource('evaluaciones', EvaluacionController::class)
+    Route::apiResource('evaluaciones-evidencias', EvaluacionController::class)
     ->parameters([
-        'evaluaciones' => 'evaluacion'
+        'evaluaciones-evidencias' => 'evaluacionEvidencia'
     ]);
 
     Route::apiResource('comentarios', ComentarioController::class)
@@ -82,7 +83,7 @@ Route::prefix('v1')->group(function () {
         'criterios-tarea' => 'criterioTarea'
     ]);
 
-    Route::apiResource('evidencias.asignaciones_revision', AsignacionRevisionController::class)
+    Route::apiResource('evidencias.asignaciones-revision', AsignacionRevisionController::class)
         ->parameters([
             'evidencias' => 'evidencia',
             'asignaciones-revision' => 'asignacionRevision'

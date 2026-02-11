@@ -17,19 +17,16 @@ class EvaluacionesTableSeeder extends Seeder
         Evaluacion::truncate();
 
         foreach (self::$evaluaciones as $evaluacion) {
-            DB::table('evaluaciones')->insert([
-                'evidencia_id' => $evaluacion['evidencia_id'],
-                'user_id' => $evaluacion['user_id'],
+            DB::table('evaluaciones-evidencias')->insert([
                 'puntuacion' => $evaluacion['puntuacion'],
-                'estado' => $evaluacion['estado'],
-                'observaciones' => $evaluacion['observaciones']
+                'estado' => $evaluacion['estado']
             ]);
         }
         $this->command->info('¡Tabla evaluaciones inicializada con datos!');
     }
 
     public static $evaluaciones = [
-        ['evidencia_id' => 1, 'user_id' => 1, 'puntuacion' => 50.5, 'estado' => 'pendiente', 'observaciones' => ''],
-        ['evidencia_id' => 2, 'user_id' => 2, 'puntuacion' => 70, 'estado' => 'pendiente', 'observaciones' => '']
+        ['puntuacion' => 50.5, 'estado' => 'pendiente'],
+        ['puntuacion' => 70, 'estado' => 'aprobada']
     ];
 }

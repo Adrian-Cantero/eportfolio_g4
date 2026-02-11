@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('estudiante_id')->nullable();
             $table->foreign('estudiante_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('modulo_formativo_id')->nullable();
-            $table->foreign('modulo_formativo_id')->references('id')->on('modulos_formativos')->onDelete('cascade');
+            $table->foreign('modulo_formativo_id')->references('id')->on('modulos-formativos')->onDelete('cascade');
             $table->timestamps();
         });
     }

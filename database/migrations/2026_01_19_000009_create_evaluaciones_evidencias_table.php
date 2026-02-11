@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluaciones', function (Blueprint $table) {
+        Schema::create('evaluaciones-evidencias', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('evidencia_id')->nullable();
             $table->foreign('evidencia_id')
@@ -23,9 +23,9 @@ return new class extends Migration
             ->references('id')
             ->on('users')
             ->onDelete('cascade');
-            $table->float('puntuacion')->nullable();
-            $table->enum('estado', ['pendiente', 'rechazada', 'validada']);
-            $table->text('observaciones')->nullable();
+            $table->float('puntuacion');
+            $table->enum('estado', ['pendiente', 'aprobada', 'rechazada']);
+            $table->string('observaciones')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluaciones');
+        Schema::dropIfExists('evaluaciones-evidencias');
     }
 };

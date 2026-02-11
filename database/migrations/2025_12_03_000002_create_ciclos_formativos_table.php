@@ -8,19 +8,19 @@ return new class extends Migration
 {
     public function up(): void
      {
-        Schema::create('ciclos_formativos', function (Blueprint $table) {
+        Schema::create('ciclos-formativos', function (Blueprint $table) {
             $table->id();
-            $table -> string('familia_profesional_id')->nullable();
+            $table -> integer('familia_profesional_id')->nullable();
             $table -> string('nombre', 255);
             $table -> string('codigo', 50);
-            $table->enum('grado', ['medio', 'superior', 'basica', 'C.E. (superior)', 'C.E. (medio)']);
-            $table -> text('descripcion')->nullable();
+            $table->enum('grado', ['basico', 'medio', 'superior']);
+            $table -> string('descripcion')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('ciclos_formativos');
+        Schema::dropIfExists('ciclos-formativos');
     }
 };

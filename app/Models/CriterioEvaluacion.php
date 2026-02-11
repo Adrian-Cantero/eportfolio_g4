@@ -10,14 +10,14 @@ class CriterioEvaluacion extends Model
 {
     use HasFactory;
 
-    protected $table = 'criterios_evaluacion';
+    protected $table = 'criterios-evaluacion';
 
     protected $fillable = [
         'resultado_aprendizaje_id',
         'codigo',
         'descripcion',
         'peso_porcentaje',
-        'orden',
+        'orden'
     ];
 
     public function resultadoAprendizaje(): BelongsTo

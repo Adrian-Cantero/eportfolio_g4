@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ciclos_formativos', function (Blueprint $table) {
+        Schema::table('ciclos-formativos', function (Blueprint $table) {
             $table->dropColumn('familia_profesional_id');
         });
-        Schema::table('ciclos_formativos', function (Blueprint $table) {
+        Schema::table('ciclos-formativos', function (Blueprint $table) {
             $table->unsignedBigInteger('familia_profesional_id')->after('id');
-            $table->foreign('familia_profesional_id')->references('id')->on('familias_profesionales')->onDelete('cascade');
+            $table->foreign('familia_profesional_id')->references('id')->on('familias-profesionales')->onDelete('cascade');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ciclos_formativos', function (Blueprint $table) {
+        Schema::table('ciclos-formativos', function (Blueprint $table) {
             $table->dropForeign(['familia_profesional_id']);
             $table->dropColumn('familia_profesional_id');
         });

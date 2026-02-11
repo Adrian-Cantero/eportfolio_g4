@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('estudiante_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('criterio_evaluacion_id')->references('id')->on('criterios_evaluacion')->onDelete('set null');
+            $table->foreign('criterio_evaluacion_id')->references('id')->on('criterios-evaluacion')->onDelete('set null');
             $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('set null');
         });
     }

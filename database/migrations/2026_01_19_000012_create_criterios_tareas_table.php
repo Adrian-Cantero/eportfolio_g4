@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('criterios_tareas', function (Blueprint $table) {
+        Schema::create('criterios-tareas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tarea_id');
             $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade');
             $table->unsignedBigInteger('actividad_id');
-            $table->foreign('actividad_id')->references('id')->on('criterios_evaluacion')->onDelete('cascade');
+            $table->foreign('actividad_id')->references('id')->on('criterios-evaluacion')->onDelete('cascade');
             $table->timestamps();
 
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('criterios_tareas');
+        Schema::dropIfExists('criterios-tareas');
     }
 };

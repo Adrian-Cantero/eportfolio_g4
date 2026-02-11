@@ -10,7 +10,7 @@ class ResultadoAprendizaje extends Model
 {
     use HasFactory;
 
-    protected $table = 'resultados_aprendizaje';
+    protected $table = 'resultados-aprendizaje';
 
     protected $fillable = [
         'id',

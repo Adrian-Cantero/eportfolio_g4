@@ -9,9 +9,9 @@ use App\Models\Tarea;
 
 class CriterioTarea extends Model
 {
-       use HasFactory;
+    use HasFactory;
 
-    protected $table = 'criterios_tareas';
+    protected $table = 'criterios-tareas';
 
     protected $fillable = [
         'tarea_id',
@@ -30,8 +30,3 @@ class CriterioTarea extends Model
         return $this->belongsTo(CriterioEvaluacion::class, 'actividad_id');
     }
 }
-
-
-
-
-

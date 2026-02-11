@@ -9,7 +9,7 @@ class ModuloFormativo extends Model
 {
     use HasFactory;
 
-    protected $table = 'modulos_formativos';
+    protected $table = 'modulos-formativos';
 
     protected $fillable = [
         'ciclo_formativo_id',
