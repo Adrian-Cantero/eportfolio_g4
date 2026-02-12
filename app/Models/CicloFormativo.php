@@ -17,6 +17,6 @@ class CicloFormativo extends Model
         'nombre',
         'codigo',
         'grado',
-        'descripcion',
+        'descripcion'
     ];
 }

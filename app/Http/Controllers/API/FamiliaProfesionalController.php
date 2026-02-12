@@ -38,24 +38,24 @@ class FamiliaProfesionalController extends Controller
         return new FamiliaProfesionalResource($familia);
     }
 
-    public function show(FamiliaProfesional $familiaProfesional)
+    public function show(FamiliaProfesional $familia)
     {
-        return new FamiliaProfesionalResource($familiaProfesional);
+        return new FamiliaProfesionalResource($familia);
     }
 
-    public function update(Request $request, FamiliaProfesional $familiaProfesional)
+    public function update(Request $request, FamiliaProfesional $familia)
     {
         $data = json_decode($request->getContent(), true);
 
-        $familiaProfesional->update($data);
+        $familia->update($data);
 
-        return new FamiliaProfesionalResource($familiaProfesional);
+        return new FamiliaProfesionalResource($familia);
     }
 
-    public function destroy(FamiliaProfesional $familiaProfesional)
+    public function destroy(FamiliaProfesional $familia)
     {
         try {
-            $familiaProfesional->delete();
+            $familia->delete();
             return response()->json(["message" => "FamiliaProfesional eliminado correctamente"], 200);
         } catch (\Exception $e) {
             return response()->json([

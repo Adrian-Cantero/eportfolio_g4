@@ -13,7 +13,6 @@ class CriterioEvaluacion extends Model
     protected $table = 'criterios_evaluacion';
 
     protected $fillable = [
-        'id',
         'resultado_aprendizaje_id',
         'codigo',
         'descripcion',

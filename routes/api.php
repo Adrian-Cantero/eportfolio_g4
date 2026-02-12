@@ -45,7 +45,7 @@ Route::prefix('v1')->group(function () {
     ]);
 
     Route::apiResource('criterios-evaluacion', CriterioEvaluacionController::class)->parameters([
-        'criterios-evaluacion' => 'criterioEvaluacion'
+        'criterios-evaluacion' => 'criteriosEvaluacion'
     ]);
 
     Route::apiResource('matriculas', MatriculaController::class)->parameters([
@@ -53,17 +53,12 @@ Route::prefix('v1')->group(function () {
     ]);
 
     Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)
-        ->parameters(['familias-profesionales' => 'familiaProfesional']);
+        ->parameters(['familias-profesionales' => 'familia']);
 
     Route::apiResource('familias-profesionales.ciclos-formativos', CicloFormativoController::class)
         ->parameters([
+            'ciclos-formativos' => 'cicloFormativo',
             'familias-profesionales' => 'familia'
-    ]);
-
-    Route::apiResource('familias-profesionales.ciclos-formativos', CicloFormativoController::class)
-        ->parameters([
-            'familias-profesionales' => 'familia',
-            'ciclos-formativos' => 'cicloFormativo'
     ]);
 
     Route::apiResource('ciclos-formativos.modulos-formativos', ModuloFormativoController::class)->parameters([

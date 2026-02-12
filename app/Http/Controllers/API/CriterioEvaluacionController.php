@@ -19,12 +19,13 @@ class CriterioEvaluacionController extends Controller
         $query = CriterioEvaluacion::query();
 
         if ($request->has('search')) {
-            $query->where('descripcion', 'like', '%' .$request->search . '%');
+            $query->where('descripcion', 'like', '%' . $request->search . '%');
         }
 
         return CriterioEvaluacionResource::collection(
             $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
-            ->paginate($request->per_page));
+                ->paginate($request->per_page)
+        );
     }
 
     /**
@@ -57,14 +58,18 @@ class CriterioEvaluacionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CriterioEvaluacion $criterioEvaluacion)
+    public function update(Request $request, ResultadoAprendizaje $resultadoAprendizaje, CriterioEvaluacion $criterioEvaluacion)
     {
-        if (Auth::user()->email != env('ADMIN_EMAIL')) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+        $validatedData = $request->validate([
+            'codigo' => 'required|string|max:50|unique:criterios_evaluacion,codigo',
+            'descripcion' => 'required|string',
+            'peso_porcentaje' => 'required|numeric|min:0|max:100',
+            'orden' => 'required|integer|min:1'
+        ]);
 
-        $criterioEvaluacionData = json_decode($request->getContent(), true);
-        $criterioEvaluacion->update($criterioEvaluacionData);
+        $validatedData['resultado_aprendizaje_id'] = $resultadoAprendizaje->id;
+
+        $criterioEvaluacion->update($validatedData);
 
         return new CriterioEvaluacionResource($criterioEvaluacion);
     }

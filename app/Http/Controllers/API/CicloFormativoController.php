@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CicloFormativoResource;
 use App\Models\CicloFormativo;
 use App\Models\FamiliaProfesional;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,9 @@ class CicloFormativoController extends Controller
         );
     }
 
-    public function store(Request $request, FamiliaProfesional $familia)
+    public function store(Request $request, FamiliaProfesional $familia, CicloFormativo $cicloFormativo)
     {
+
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'codigo' => 'required|string|max:50|unique:ciclos_formativos,codigo',
@@ -35,7 +37,7 @@ class CicloFormativoController extends Controller
         ]);
 
         if (Auth::user()->email != env('MAIL_ADMIN')) {
-            return response()->json('Error', 403);
+            return response()->json('Unauthorized', 403);
         }
 
         $validatedData['familia_profesional_id'] = $familia->id;
@@ -45,33 +47,34 @@ class CicloFormativoController extends Controller
         return new CicloFormativoResource($ciclo);
     }
 
-    public function show(CicloFormativo $cicloFormativo)
+    public function show(FamiliaProfesional $familia, CicloFormativo $cicloFormativo)
     {
         return new CicloFormativoResource($cicloFormativo);
     }
 
-    public function update(Request $request, $familiaId, CicloFormativo $cicloFormativo)
+    public function update(Request $request, FamiliaProfesional $familia, CicloFormativo $cicloFormativo)
     {
-        if (Auth::user()->email != env('MAIL_ADMIN')) {
-            return response()->json('Error', 403);
-        }
 
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'codigo' => 'required|string|max:50|unique:ciclos_formativos,codigo,' . $cicloFormativo->id,
+            'codigo' => 'required|string|max:50|unique:ciclos_formativos,codigo,',
             'grado' => 'required|string|in:basico,medio,superior',
-            'descripcion' => 'nullable|string',
+            'descripcion' => 'required|string',
         ]);
+
+        if (Auth::user()->email != env('MAIL_ADMIN')) {
+            return response()->json('Unauthorized', 403);
+        }
 
         $cicloFormativo->update($validatedData);
 
         return new CicloFormativoResource($cicloFormativo);
     }
 
-    public function destroy($familiaId, CicloFormativo $cicloFormativo)
+    public function destroy(CicloFormativo $cicloFormativo, FamiliaProfesional $familia)
     {
         if (Auth::user()->email != env('MAIL_ADMIN')) {
-            return response()->json('Error', 403);
+            return response()->json('Unauthorized', 403);
         }
 
         try {
