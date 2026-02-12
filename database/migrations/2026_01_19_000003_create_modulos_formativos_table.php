@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('modulos-formativos', function (Blueprint $table) {
+    Schema::create('modulos_formativos', function (Blueprint $table) {
         $table->id();
 
         $table->foreignId('ciclo_formativo_id')
-              ->constrained('ciclos-formativos')
+              ->constrained('ciclos_formativos')
               ->cascadeOnDelete();
 
         $table->string('nombre');
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modulos-formativos');
+        Schema::dropIfExists('modulos_formativos');
     }
 };

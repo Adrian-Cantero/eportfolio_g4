@@ -9,9 +9,10 @@ class CicloFormativo extends Model
 {
     use HasFactory;
 
-    protected $table = 'ciclos-formativos';
+    protected $table = 'ciclos_formativos';
 
     protected $fillable = [
+        'id',
         'familia_profesional_id',
         'nombre',
         'codigo',

@@ -10,7 +10,7 @@ class Evaluacion extends Model
 {
     use HasFactory;
 
-    protected $table = 'evaluaciones-evidencias';
+    protected $table = 'evaluaciones_evidencias';
 
     protected $fillable = [
         'id',

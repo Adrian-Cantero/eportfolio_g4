@@ -10,7 +10,7 @@ class AsignacionRevision extends Model
 {
     use HasFactory;
 
-    protected $table = 'asignaciones-revision';
+    protected $table = 'asignaciones_revision';
 
     protected $fillable = [
         'evidencia_id',

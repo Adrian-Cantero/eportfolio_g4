@@ -14,6 +14,15 @@ class CriterioEvaluacionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'resultado_aprendizaje_id' => $this->resultado_aprendizaje_id,
+            'codigo' => $this->codigo,
+            'descripcion' => $this->descripcion,
+            'peso_porcentaje' => $this->peso_porcentaje,
+            'orden' => $this->orden,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
+        ];
     }
 }

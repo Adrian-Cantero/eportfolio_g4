@@ -11,7 +11,7 @@ class CriterioTarea extends Model
 {
     use HasFactory;
 
-    protected $table = 'criterios-tareas';
+    protected $table = 'criterios_tareas';
 
     protected $fillable = [
         'tarea_id',

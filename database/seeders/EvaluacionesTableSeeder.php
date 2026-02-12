@@ -17,7 +17,7 @@ class EvaluacionesTableSeeder extends Seeder
         Evaluacion::truncate();
 
         foreach (self::$evaluaciones as $evaluacion) {
-            DB::table('evaluaciones-evidencias')->insert([
+            DB::table('evaluaciones_evidencias')->insert([
                 'puntuacion' => $evaluacion['puntuacion'],
                 'estado' => $evaluacion['estado']
             ]);

@@ -17,7 +17,7 @@ class FamiliasProfesionalesTableSeeder extends Seeder
         foreach (self::$familias_profesionales as $familia) {
             FamiliaProfesional::create([
                 'codigo' => $familia['codigo'],
-                'nombre' => $familia['nombre'],
+                'nombre' => $familia['nombre']
             ]);
         }
 

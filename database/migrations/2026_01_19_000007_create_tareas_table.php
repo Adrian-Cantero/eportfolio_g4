@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('enunciado');
             $table->timestamps();
 
-            $table->foreign('criterio_evaluacion_id')->references('id')->on('criterios-evaluacion')->onDelete('cascade');
+            $table->foreign('criterio_evaluacion_id')->references('id')->on('criterios_evaluacion')->onDelete('cascade');
         });
     }
 

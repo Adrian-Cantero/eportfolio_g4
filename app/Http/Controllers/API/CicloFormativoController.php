@@ -5,22 +5,18 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CicloFormativoResource;
 use App\Models\CicloFormativo;
+use App\Models\FamiliaProfesional;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CicloFormativoController extends Controller
 {
-    public function index(Request $request, $familia)
+    public function index(Request $request)
     {
         $query = CicloFormativo::query();
-        $query->where('familia_profesional_id', $familia->id);
 
-         if ($request->q) {
-            $query->where(function ($q) use ($request) {
-                $q->orWhere("nombre", "like", "%" . $request->q . "%")
-                    ->orWhere("codigo", "like", "%" . $request->q . "%")
-                    ->orWhere("grado", "like", "%" . $request->q . "%");
-            });
+        if ($request->has('search')) {
+            $query->where('nombre', 'like', '%' . $request->search . '%');
         }
 
         return CicloFormativoResource::collection(
@@ -29,25 +25,27 @@ class CicloFormativoController extends Controller
         );
     }
 
-    public function store(Request $request, $familiaId)
+    public function store(Request $request, FamiliaProfesional $familia)
     {
-        if (Auth::user()->email != env('MAIL_ADMIN')) {
-            return response()->json('Error', 422);
-        }
-
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'codigo' => 'required|string|max:255|unique:ciclos-formativos,codigo',
+            'codigo' => 'required|string|max:50|unique:ciclos_formativos,codigo',
             'grado' => 'required|string|in:basico,medio,superior',
-            'descripcion' => 'nullable|string',
+            'descripcion' => 'required|string',
         ]);
+
+        if (Auth::user()->email != env('MAIL_ADMIN')) {
+            return response()->json('Error', 403);
+        }
+
+        $validatedData['familia_profesional_id'] = $familia->id;
 
         $ciclo = CicloFormativo::create($validatedData);
 
         return new CicloFormativoResource($ciclo);
     }
 
-    public function show($familiaId, CicloFormativo $cicloFormativo)
+    public function show(CicloFormativo $cicloFormativo)
     {
         return new CicloFormativoResource($cicloFormativo);
     }
@@ -55,12 +53,12 @@ class CicloFormativoController extends Controller
     public function update(Request $request, $familiaId, CicloFormativo $cicloFormativo)
     {
         if (Auth::user()->email != env('MAIL_ADMIN')) {
-            return response()->json('Error', 422);
+            return response()->json('Error', 403);
         }
 
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'codigo' => 'required|string|max:255|unique:ciclo_formativos,codigo,' . $cicloFormativo->id,
+            'codigo' => 'required|string|max:50|unique:ciclos_formativos,codigo,' . $cicloFormativo->id,
             'grado' => 'required|string|in:basico,medio,superior',
             'descripcion' => 'nullable|string',
         ]);
@@ -73,12 +71,12 @@ class CicloFormativoController extends Controller
     public function destroy($familiaId, CicloFormativo $cicloFormativo)
     {
         if (Auth::user()->email != env('MAIL_ADMIN')) {
-            return response()->json('Error', 422);
+            return response()->json('Error', 403);
         }
 
         try {
             $cicloFormativo->delete();
-            return response()->json(null, 200);
+            return response()->json('CicloFormativo eliminado correctamente', 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

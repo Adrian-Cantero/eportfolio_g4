@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resultados-aprendizaje', function (Blueprint $table) {
+        Schema::create('resultados_aprendizaje', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('modulo_formativo_id')->nullable();
             $table->string('codigo', 50);
@@ -29,6 +29,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('resultados-aprendizaje');
+        Schema::dropIfExists('resultados_aprendizaje');
     }
 };

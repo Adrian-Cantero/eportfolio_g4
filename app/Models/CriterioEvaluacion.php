@@ -10,9 +10,10 @@ class CriterioEvaluacion extends Model
 {
     use HasFactory;
 
-    protected $table = 'criterios-evaluacion';
+    protected $table = 'criterios_evaluacion';
 
     protected $fillable = [
+        'id',
         'resultado_aprendizaje_id',
         'codigo',
         'descripcion',
