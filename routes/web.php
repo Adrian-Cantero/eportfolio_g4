@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CiclosFormativosController;
 use App\Http\Controllers\EvidenciasController;
 use App\Http\Controllers\FamiliasProfesionalesController;
+use App\Http\Controllers\PortfolioImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResultadosAprendizajesController;
 use App\Models\CriterioEvaluacion;
@@ -30,6 +31,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Formulario de importación
+    Route::get('/portfolio/import', [PortfolioImportController::class, 'showImportForm'])
+        ->name('portfolio.import.form');
+
+    // Importar desde JSON Resume
+    Route::post('/portfolio/import/json-resume', [PortfolioImportController::class, 'importJsonResume'])
+        ->name('portfolio.import.json-resume');
+
+    // Importar desde GitHub
+    Route::post('/portfolio/import/github', [PortfolioImportController::class, 'importGitHub'])
+        ->name('portfolio.import.github');
 });
 
 //-----------------------------------------------
