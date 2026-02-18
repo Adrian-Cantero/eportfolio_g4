@@ -68,7 +68,7 @@ class PortfolioImportController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('portfolio.import.form')
+                ->route('portfolio.import.index')
                 ->with('success', 'Portfolio importado correctamente desde JSON Resume');
 
         } catch (\Exception $e) {

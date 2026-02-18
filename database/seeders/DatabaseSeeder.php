@@ -54,6 +54,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(EvaluacionesTableSeeder::class);
 
+        // Orden importante: primero users, luego skills
+        $this->call([
+            // UserSeeder::class, // Si tienes un seeder de usuarios
+            SkillSeeder::class,
+        ]);
+
         Model::reguard();
 
         Schema::enableForeignKeyConstraints();
