@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\ResumeImportService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -68,7 +68,7 @@ class PortfolioImportController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('portfolio.index')
+                ->route('portfolio.import.form')
                 ->with('success', 'Portfolio importado correctamente desde JSON Resume');
 
         } catch (\Exception $e) {
@@ -116,7 +116,7 @@ class PortfolioImportController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('portfolio.index')
+                ->route('portfolio.import.form')
                 ->with('success', "Se importaron " . count($data['projects']) . " proyectos desde GitHub");
 
         } catch (\Exception $e) {
